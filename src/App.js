@@ -1,6 +1,6 @@
 import './App.css';
-import utils from './utils';
-import { helper1, helper2 } from './utils';
+// import utils from './utils';
+// import { helper1, helper2 } from './utils';
 import Button from './Button';
 import Counter from './Counter';
 
