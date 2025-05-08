@@ -1,30 +1,19 @@
 import './App.css';
-// import utils from './utils';
-// import { helper1, helper2 } from './utils';
-import Button from './Button';
-import Counter from './Counter';
+function ChildComponent() {
+  const handleButtonClick = () => {
+    alert("Button clicked!"); // 고정된 기능 추가
+   };
 
-function Greeting() {
-	return (
-		<h1>Hello, World!</h1>
-	);
+  return (
+    <div>
+	ChildComponent<br/>
+      <button onClick={handleButtonClick}>클릭하세요</button>
+    </div>
+  );
 }
 
-function App() {
-//	alert(utils());
-//	alert(helper1());
-//	alert(helper2());
-	 const name = 'John';
-	 const element = <h2>Hello, {name}!</h2>;
-  return (
-			<div className="App">
-			 Hello, React!<br/>
-			 <Button/><br/>
-			 <Counter/><br/>
-			 {element}{element}<br/>
-			 <Greeting/><Greeting/>
-			</div>
-  );
+function App(){
+	return <ChildComponent />
 }
 
 export default App;
