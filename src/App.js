@@ -1,56 +1,37 @@
-import { useState } from "react";
-const fruits = ["사과", "바나나", "배"];
+import React, { useReducer } from 'react';
 
 
-function CheckboxList() {
-  const [selecteds, setSelecteds] = useState(
-    new Array(fruits.length).fill(false)
-  );
-
-
-  const toggleFruitSelected = (index) => {
-    const newSelecteds = selecteds.map((el, _index) =>
-      _index === index ? !el : el
-    );
-    setSelecteds(newSelecteds);
-  };
-
-
-//사용자가 선택한 과일만 가져오기
-  const selectedFruits = selecteds
-    .map((el, index) => (el ? fruits[index] : null))
-    .filter((el) => el);
+// 1. 리듀서 함수 정의
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + 1 };
+    case 'DECREMENT':
+      return { count: state.count - 1 };
+    case 'RESET':
+      return { count: 0 };
+    default:
+      return state;
+  }
+};
+// 2. 초기 상태
+const initialState = { count: 0 };
+const Counter = () => {
+  // 3. useReducer를 사용하여 상태와 디스패치 함수를 정의
+  const [state, dispatch] = useReducer(reducer, initialState);
 
 
   return (
     <div>
-      <h1 className="font-bold">체크박스 연습</h1>
-      <ul>
-        {fruits.map((fruit, index) => (
-          <li key={index}>
-            <label className="cursor-pointer flex items-center gap-x-3">
-              <input
-                type="checkbox"
-                checked={selecteds[index]}
-                onChange={() => toggleFruitSelected(index)}
-              />
-              {fruit}
-            </label>
-          </li>
-        ))}
-      </ul>
-      <p>선택상태: {JSON.stringify(selecteds)}</p>
-      <p>선택된 과일: {selectedFruits.join(", ")}</p>
+      {/* 4. 변경된 데이터를 그때그때 보여줄 state변수 기술*/}
+      <p>Count: {state.count}</p>
+      {/* 5. 디스패치 함수를 사용하여 액션을 보냄 */}
+      <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+      <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
+      <button onClick={() => dispatch({ type: 'RESET' })}>Reset</button>
     </div>
   );
-}
+};
 
 
-export default function App() {
-  return (
-    <div className="p-4">
-      <CheckboxList />
-    </div>
-  );
-}
-
+export default Counter;
